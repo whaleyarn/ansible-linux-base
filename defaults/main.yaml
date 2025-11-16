@@ -1,1 +1,2 @@
 ---
+base_proxy_env: "{{ proxy_env | default({}) }}"
