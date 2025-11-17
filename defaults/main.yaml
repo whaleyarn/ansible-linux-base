@@ -1,2 +1,3 @@
 ---
 base_proxy_env: "{{ proxy_env | default({}) }}"
+base_apt_unattended_upgrades_reboot_time: 00:40

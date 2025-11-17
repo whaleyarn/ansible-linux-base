@@ -47,3 +47,29 @@
     state: absent
   when:
     - not base_proxy_env
+
+# https://wiki.debian.org/UnattendedUpgrades
+# To aid debugging you may need to run unattended-upgrades manually thus:
+# sudo unattended-upgrade -d
+- name: Install unattended-upgrades
+  ansible.builtin.apt:
+    name:
+      - unattended-upgrades
+      - apt-listchanges
+    state: present
+
+- name: Set auto upgrades
+  ansible.builtin.template:
+    src: etc/apt/apt.conf.d/20auto-upgrades.j2
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    mode: '644'
+    owner: root
+    group: root
+
+- name: Set unattended-upgrades
+  ansible.builtin.template:
+    src: etc/apt/apt.conf.d/50unattended-upgrades.j2
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    mode: '644'
+    owner: root
+    group: root
