@@ -3,15 +3,15 @@
   ansible.builtin.template:
     src: etc/apt/sources.list
     dest: /etc/apt/sources.list
-    mode: '644'
+    mode: "644"
 
 - name: Config debian.sources
   ansible.builtin.deb822_repository:
     name: debian
     uris: https://mirrors.tuna.tsinghua.edu.cn/debian
     suites:
-      - '{{ ansible_distribution_release }}'
-      - '{{ ansible_distribution_release }}-updates'
+      - "{{ ansible_facts['distribution_release'] }}"
+      - "{{ ansible_facts['distribution_release'] }}-updates"
     components:
       - main
       - contrib
@@ -22,7 +22,7 @@
   ansible.builtin.deb822_repository:
     name: security
     uris: https://security.debian.org/debian-security
-    suites: '{{ ansible_distribution_release }}-security'
+    suites: "{{ ansible_facts['distribution_release'] }}-security"
     components:
       - main
       - contrib
@@ -36,7 +36,7 @@
       Acquire::http::proxy::mirrors.tuna.tsinghua.edu.cn "DIRECT";
       Acquire::http::proxy "{{ base_proxy_env.http_proxy }}";
       Acquire::https::proxy "{{ base_proxy_env.http_proxy }}";
-    mode: '644'
+    mode: "644"
   when:
     - base_proxy_env.http_proxy is defined
     - base_proxy_env.http_proxy != ""
@@ -62,7 +62,7 @@
   ansible.builtin.template:
     src: etc/apt/apt.conf.d/20auto-upgrades.j2
     dest: /etc/apt/apt.conf.d/20auto-upgrades
-    mode: '644'
+    mode: "644"
     owner: root
     group: root
 
@@ -70,6 +70,8 @@
   ansible.builtin.template:
     src: etc/apt/apt.conf.d/50unattended-upgrades.j2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
-    mode: '644'
+    mode: "644"
     owner: root
     group: root
+
+
