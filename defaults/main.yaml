@@ -1,3 +1,7 @@
 ---
 base_proxy_env: "{{ proxy_env | default({}) }}"
 base_apt_unattended_upgrades_reboot_time: 00:40
+base_mirror_region: "default"
+base_apt_mirrors:
+  default: http://deb.debian.org
+  cn: https://mirrors.tuna.tsinghua.edu.cn

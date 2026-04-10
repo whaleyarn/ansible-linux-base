@@ -8,7 +8,7 @@
 - name: Config debian.sources
   ansible.builtin.deb822_repository:
     name: debian
-    uris: https://mirrors.tuna.tsinghua.edu.cn/debian
+    uris: "{{ base_apt_mirrors[base_mirror_region] | default(apt_mirrors['default']) }}/{{ ansible_facts['distribution'] | lower }}"
     suites:
       - "{{ ansible_facts['distribution_release'] }}"
       - "{{ ansible_facts['distribution_release'] }}-updates"
